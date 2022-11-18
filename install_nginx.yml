@@ -1,0 +1,14 @@
+---
+
+- hosts: all
+  become: true
+  tasks:
+    - name: update repository
+      # module used
+      apt:
+        update_cache: yes
+    - name: installing nginx
+      # module used
+      apt:
+        # package name
+        name: nginx

@@ -1,0 +1,15 @@
+---
+
+- hosts: all
+  become: true
+  tasks:
+    - name: uninstalling nginx
+      # module used
+      apt:
+        # package name
+        name: nginx
+        state: absent
+    - name: update repository
+      # module used
+      apt:
+        update_cache: yes
