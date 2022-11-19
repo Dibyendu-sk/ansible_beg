@@ -1,14 +1,30 @@
 ---
-
-- hosts: all
+- name: ansible playbook for installing nginx
+  hosts: all
   become: true
   tasks:
-    - name: update repository
-      # module used
-      apt:
-        update_cache: yes
     - name: installing nginx
       # module used
       apt:
         # package name
         name: nginx
+      # condition : checking the distribution of the OS
+      when: ansible_distribution=="Debian"
+    - name: updating repository
+      # module used
+      apt:
+        update_cache: yes
+      # condition
+      when: ansible_distribution=="Debian"
+    
+    - name: installing nginx for CentOS
+      # module used
+      dnf:
+        # package name
+        name: nginx
+      # condition
+      when: ansible_distribution=="CentOS"
+    - name: updating repository for CentOS
+      dnf:
+        update_cache: yes
+      when: ansible_distribution=="CentOS"

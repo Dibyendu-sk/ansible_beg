@@ -1,6 +1,6 @@
 ---
-
-- hosts: all
+- name: ansible playbook for uninstalling nginx
+  hosts: all
   become: true
   tasks:
     - name: uninstalling nginx
@@ -9,7 +9,24 @@
         # package name
         name: nginx
         state: absent
-    - name: update repository
+      # condition : checking the distribution of the OS
+      when: ansible_distribution=="Debian"
+    - name: updating repository
       # module used
       apt:
         update_cache: yes
+      # condition
+      when: ansible_distribution=="Debian"
+    
+    - name: uninstalling nginx for CentOS
+      # module used
+      dnf:
+        # package name
+        name: nginx
+        state: absent
+      # condition
+      when: ansible_distribution=="CentOS"
+    - name: updating repository for CentOS
+      dnf:
+        update_cache: yes
+      when: ansible_distribution=="CentOS"
