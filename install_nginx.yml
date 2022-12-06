@@ -3,27 +3,14 @@
   hosts: all
   become: true
   tasks:
-    - name: installing nginx and vim for debian based Operating System and updating the repository
+    - name: installing nginx and vim for remote servers and updating the repo.
       # module used
-      apt:
+      package:
         # package name
               name:
-                      - nginx
-                      - vim
+                      # these are variables which will be defined in inventory file.
+                      - "{{ nginx_package }}"
+                      - "{{ vim_package }}"
               state: latest
               update_cache: yes
-      # condition : checking the distribution of the OS
-      when: ansible_distribution=="Debian"
-
-    - name: installing nginx and vim for CentOS and updating the repository
-      # module used
-      dnf:
-        # package name
-              name: 
-                      - nginx
-                      - vim-enhanced
-              state: latest
-              update_cache: yes
-      # condition
-      when: ansible_distribution=="CentOS"
 

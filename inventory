@@ -1,3 +1,2 @@
-192.168.112.213
-192.168.112.106
-
+192.168.112.213 nginx_package=nginx vim_package=vim
+192.168.112.106 nginx_package=nginx vim_package=vim-enhanced
