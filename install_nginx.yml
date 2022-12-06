@@ -1,40 +1,38 @@
 ---
-- name: ansible playbook for installing nginx
+- name: ansible playbook for installing nginx and vim
   hosts: all
   become: true
   tasks:
-    - name: installing nginx
+    - name: installing nginx and vim for debian based Operating System
       # module used
       apt:
         # package name
-              name: nginx
+              name:
+                      - nginx
+                      - vim
+              state: latest
       # condition : checking the distribution of the OS
       when: ansible_distribution=="Debian"
-    - name: installing vim
-      #module used
-      apt:
-              name: vim
-              state: latest
-      when: ansible_distribution=="Debian"
-    - name: updating repository
+  
+    - name: updating repository for debian based OS
       # module used
       apt:
               update_cache: yes
       # condition
       when: ansible_distribution=="Debian"
-    - name: installing nginx for CentOS
+
+    - name: installing nginx and vim for CentOS
       # module used
       dnf:
         # package name
-              name: nginx
+              name: 
+                      - nginx
+                      - vim-enhanced
+              state: latest
       # condition
       when: ansible_distribution=="CentOS"
-    - name: installing vim for CentOS 
-      dnf:
-              name: vim-enhanced
-              state: latest
-      when: ansible_distribution=="CentOS"
-    - name: updating repository for CentOS
+
+    - name: updating repository for CentOS 
       dnf:
               update_cache: yes
       when: ansible_distribution=="CentOS"
